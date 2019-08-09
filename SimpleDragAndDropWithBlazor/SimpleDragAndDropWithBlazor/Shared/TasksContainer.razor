@@ -1,0 +1,24 @@
+﻿<div class="tasks-container">
+    <CascadingValue Value="this">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    [Parameter] public List<Task> Tasks { get; set; }
+    [Parameter] RenderFragment ChildContent { get; set; }
+
+    public Task Payload { get; set; }
+
+    public void UpdateTask(TaskStatuses newStatus)
+    {
+        var task = Tasks.SingleOrDefault(x => x.Id == Payload.Id);
+
+        if (task != null)
+        {
+            task.Status = newStatus;
+            task.LastUpdated = DateTime.Now;
+            StateHasChanged();
+        }
+    }
+}

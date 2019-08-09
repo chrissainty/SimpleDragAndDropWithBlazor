@@ -1,0 +1,43 @@
+﻿<div class="task-status">
+    <h3>@Status</h3>
+
+    <ul class="dropzone" ondragover="event.preventDefault();" @ondrop="HandleDrop">
+        @foreach (var task in Tasks)
+        {
+            <li class="draggable" draggable="true" @ondragstart="@(() => HandleDragStart(task))">
+                <p class="description">@task.Description</p>
+                <p class="last-updated"><small>Last Updated</small> @task.LastUpdated.ToString("dd MMM yy @ HH:mm")</p>
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+
+    [CascadingParameter] TasksContainer Container { get; set; }
+    [Parameter] TaskStatuses Status { get; set; }
+    [Parameter] TaskStatuses[] AllowedStatuses { get; set; }
+
+    List<Task> Tasks = new List<Task>();
+
+    protected override void OnParametersSet()
+    {
+        Tasks.Clear();
+        Tasks.AddRange(Container.Tasks.Where(x => x.Status == Status));
+    }
+
+    private void HandleDragStart(Task listItem)
+    {
+        Container.Payload = listItem;
+    }
+
+    private void HandleDrop()
+    {
+        if (AllowedStatuses != null && !AllowedStatuses.Contains(Container.Payload.Status))
+        {
+            return;
+        }
+
+        Container.UpdateTask(Status);
+    }
+}
