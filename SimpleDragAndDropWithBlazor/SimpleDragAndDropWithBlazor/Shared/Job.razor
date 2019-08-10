@@ -1,0 +1,14 @@
+﻿<li class="draggable" draggable="true" title="@JobModel.Description" @ondragstart="@(() => HandleDragStart(JobModel))">
+    <p class="description">@JobModel.Description</p>
+    <p class="last-updated"><small>Last Updated</small> @JobModel.LastUpdated.ToString("HH:mm.ss tt")</p>
+</li>
+
+@code {
+    [CascadingParameter] JobsContainer Container { get; set; }
+    [Parameter] JobModel JobModel { get; set; }
+
+    private void HandleDragStart(JobModel selectedJob)
+    {
+        Container.Payload = selectedJob;
+    }
+}

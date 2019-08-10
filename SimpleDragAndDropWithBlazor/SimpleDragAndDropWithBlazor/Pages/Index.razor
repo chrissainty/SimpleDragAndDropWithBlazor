@@ -1,23 +1,35 @@
 ﻿@page "/"
 
-<h1>Simple Drag and Drop with Blazor.</h1>
+<JobsContainer Jobs="Jobs" OnStatusUpdated="HandleStatusUpdated">
+    <JobList ListStatus="JobStatuses.Todo" AllowedStatuses="@(new JobStatuses[] { JobStatuses.Started})" />
+    <JobList ListStatus="JobStatuses.Started" AllowedStatuses="@(new JobStatuses[] { JobStatuses.Todo})" />
+    <JobList ListStatus="JobStatuses.Completed" AllowedStatuses="@(new JobStatuses[] { JobStatuses.Started })" />
+</JobsContainer>
+
+<hr />
+<p>Last updated job was: <strong>@lastUpdatedJob</strong></p>
 <hr />
 
-<TasksContainer Tasks="Tasks">
-    <TaskList Status="TaskStatuses.Todo" AllowedStatuses="@(new TaskStatuses[] { TaskStatuses.Started})" />
-    <TaskList Status="TaskStatuses.Started" AllowedStatuses="@(new TaskStatuses[] { TaskStatuses.Todo})" />
-    <TaskList Status="TaskStatuses.Completed" AllowedStatuses="@(new TaskStatuses[] { TaskStatuses.Started })" />
-</TasksContainer>
+@foreach (var task in Jobs)
+{
+    <p>@task.Description - <strong>@task.Status</strong></p>
+}
 
 @code {
-    List<Shared.Task> Tasks = new List<Shared.Task>();
+    List<JobModel> Jobs = new List<JobModel>();
+    string lastUpdatedJob = "";
 
     protected override void OnInit()
     {
-        Tasks.Add(new Shared.Task { Id = 1, Description = "Mow the lawn", Status = TaskStatuses.Todo, LastUpdated = DateTime.Now });
-        Tasks.Add(new Shared.Task { Id = 2, Description = "Go to the gym", Status = TaskStatuses.Todo, LastUpdated = DateTime.Now });
-        Tasks.Add(new Shared.Task { Id = 3, Description = "Call Ollie", Status = TaskStatuses.Todo, LastUpdated = DateTime.Now });
-        Tasks.Add(new Shared.Task { Id = 4, Description = "Fix bike tyre", Status = TaskStatuses.Todo, LastUpdated = DateTime.Now });
-        Tasks.Add(new Shared.Task { Id = 5, Description = "Finish blog post", Status = TaskStatuses.Todo, LastUpdated = DateTime.Now });
+        Jobs.Add(new JobModel { Id = 1, Description = "Mow the lawn", Status = JobStatuses.Todo, LastUpdated = DateTime.Now });
+        Jobs.Add(new JobModel { Id = 2, Description = "Go to the gym", Status = JobStatuses.Todo, LastUpdated = DateTime.Now });
+        Jobs.Add(new JobModel { Id = 3, Description = "Call Ollie", Status = JobStatuses.Todo, LastUpdated = DateTime.Now });
+        Jobs.Add(new JobModel { Id = 4, Description = "Fix bike tyre", Status = JobStatuses.Todo, LastUpdated = DateTime.Now });
+        Jobs.Add(new JobModel { Id = 5, Description = "Finish blog post", Status = JobStatuses.Todo, LastUpdated = DateTime.Now });
+    }
+
+    void HandleStatusUpdated(JobModel updatedJob)
+    {
+        lastUpdatedJob = updatedJob.Description;
     }
 }

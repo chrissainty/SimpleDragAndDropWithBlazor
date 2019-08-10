@@ -33,8 +33,12 @@ app {
     .main .top-row {
         background-color: #f7f7f7;
         border-bottom: 1px solid #d6d5d5;
-        justify-content: flex-end;
+        justify-content: space-between;
     }
+
+        .main .top-row > h3 {
+            margin-bottom: 0;
+        }
 
         .main .top-row > a {
             margin-left: 1.5rem;
@@ -92,7 +96,7 @@ app {
         }
 
 .content {
-    padding-top: 1.1rem;
+    padding-top: 4rem;
 }
 
 .navbar-toggler {
@@ -111,18 +115,20 @@ app {
     color: red;
 }
 
-.tasks-container {
+/** Simple drag and drop with Blazor CSS **/
+
+.jobs-container {
     display: flex;
     justify-content: space-around;
 }
 
-.task-status {
+.job-status {
     display: flex;
     flex-direction: column;
     width: 312px;
 }
 
-    .task-status ul {
+    .job-status ul {
         flex: 1;
     }
 
@@ -130,6 +136,14 @@ app {
     padding: 30px;
     border: 1px dashed #75868a;
     list-style: none;
+}
+
+.no-drop {
+    border: 2px dashed red;
+}
+
+.can-drop {
+    border: 2px dashed green;
 }
 
 .draggable {
@@ -143,18 +157,26 @@ app {
     width: 250px;
 }
 
+.draggable:active {
+    cursor: grabbing;
+}
+
+.dragging {
+    cursor: grabbing;
+}
+
 .description {
     font-size: 18px;
 }
 
 .last-updated {
     margin-bottom: 0;
-    font-size: 12px;
+    font-size: 11px;
     color: #e1e5ea;
+    font-weight: bold;
 }
 
     .last-updated small {
-        display: block;
         text-transform: uppercase;
         color: #c4cbd4;
         font-size: 11px;
