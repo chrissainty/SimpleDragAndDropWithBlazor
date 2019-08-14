@@ -19,7 +19,7 @@
     List<JobModel> Jobs = new List<JobModel>();
     string lastUpdatedJob = "";
 
-    protected override void OnInit()
+    protected override void OnInitialized()
     {
         Jobs.Add(new JobModel { Id = 1, Description = "Mow the lawn", Status = JobStatuses.Todo, LastUpdated = DateTime.Now });
         Jobs.Add(new JobModel { Id = 2, Description = "Go to the gym", Status = JobStatuses.Todo, LastUpdated = DateTime.Now });

@@ -6,8 +6,8 @@
 
 @code {
     [Parameter] public List<JobModel> Jobs { get; set; }
-    [Parameter] RenderFragment ChildContent { get; set; }
-    [Parameter] EventCallback<JobModel> OnStatusUpdated { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventCallback<JobModel> OnStatusUpdated { get; set; }
 
     public JobModel Payload { get; set; }
 

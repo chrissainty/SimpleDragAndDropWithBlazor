@@ -5,7 +5,7 @@
 
 @code {
     [CascadingParameter] JobsContainer Container { get; set; }
-    [Parameter] JobModel JobModel { get; set; }
+    [Parameter] public JobModel JobModel { get; set; }
 
     private void HandleDragStart(JobModel selectedJob)
     {

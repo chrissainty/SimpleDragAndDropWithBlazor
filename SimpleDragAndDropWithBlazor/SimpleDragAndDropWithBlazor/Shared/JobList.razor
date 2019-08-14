@@ -17,8 +17,8 @@
 @code {
 
     [CascadingParameter] JobsContainer Container { get; set; }
-    [Parameter] JobStatuses ListStatus { get; set; }
-    [Parameter] JobStatuses[] AllowedStatuses { get; set; }
+    [Parameter] public JobStatuses ListStatus { get; set; }
+    [Parameter] public JobStatuses[] AllowedStatuses { get; set; }
 
     List<JobModel> Jobs = new List<JobModel>();
     string dropClass = "";
