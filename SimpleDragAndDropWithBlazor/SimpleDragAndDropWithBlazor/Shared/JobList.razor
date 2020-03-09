@@ -1,7 +1,9 @@
 ﻿<div class="job-status">
     <h3>@ListStatus (@Jobs.Count())</h3>
 
-    <ul class="dropzone @dropClass" ondragover="event.preventDefault();"
+    <ul class="dropzone @dropClass"
+        ondragover="event.preventDefault();"
+        ondragstart="event.dataTransfer.setData('', event.target.id);"
         @ondrop="HandleDrop"
         @ondragenter="HandleDragEnter"
         @ondragleave="HandleDragLeave">
